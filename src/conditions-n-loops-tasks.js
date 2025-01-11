@@ -65,8 +65,12 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(king.x - queen.x) === Math.abs(king.y - queen.y)
+  );
 }
 
 /**
@@ -87,8 +91,8 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  return (a === b || a === c || b === c) && a + b > c && b + c > a && a + c > b;
 }
 
 /**
@@ -105,8 +109,23 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let number = num;
+  let result = '';
+  const dictionary = [
+    { value: 10, roman: 'X' },
+    { value: 9, roman: 'IX' },
+    { value: 5, roman: 'V' },
+    { value: 4, roman: 'IV' },
+    { value: 1, roman: 'I' },
+  ];
+  for (let i = 0; i < dictionary.length; i += 1) {
+    while (number >= dictionary[i].value) {
+      result += dictionary[i].roman;
+      number -= dictionary[i].value;
+    }
+  }
+  return result;
 }
 
 /**
@@ -124,8 +143,50 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    if (i) result += ' ';
+    switch (numberStr[i]) {
+      case '-':
+        result += 'minus';
+        break;
+      case '1':
+        result += 'one';
+        break;
+      case '2':
+        result += 'two';
+        break;
+      case '3':
+        result += 'three';
+        break;
+      case '4':
+        result += 'four';
+        break;
+      case '5':
+        result += 'five';
+        break;
+      case '6':
+        result += 'six';
+        break;
+      case '7':
+        result += 'seven';
+        break;
+      case '8':
+        result += 'eight';
+        break;
+      case '9':
+        result += 'nine';
+        break;
+      case '.':
+      case ',':
+        result += 'point';
+        break;
+      default:
+        result += 'zero';
+    }
+  }
+  return result;
 }
 
 /**
@@ -207,8 +268,21 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let left = 0;
+  let right = 0;
+
+  for (let i = 0; i < arr.length; i += 1) {
+    right += arr[i];
+  }
+
+  for (let i = 0; i < arr.length; i += 1) {
+    right -= arr[i];
+    if (left === right) return i;
+    left += arr[i];
+  }
+
+  return -1;
 }
 
 /**
